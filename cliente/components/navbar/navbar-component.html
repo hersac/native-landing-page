@@ -1,9 +1,20 @@
-<navbar id="navbar" class="navbar">
+<nav id="navbar" class="navbar">
+  <div class="navbar__logo">
+    <img src="assets/img/logo.png" alt="logo" />
+  </div>
   <ul class="navbar__list">
-    <li class="navbar__list__element">
-      <a href="{{ navbar.path }}" class="navbar__list__element__path"
-        >{{ navbar.title }}</a
-      >
-    </li>
+    {{ elements }}
   </ul>
-</navbar>
+  <div class="navbar__darkBtn">
+    <button id="btnDarkMode">
+      <span id="darkModeIcons">
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-toggle-on"></i>
+      </span>
+      <span id="lightModeIcons">
+        <i class="fa-regular fa-sun"></i>
+        <i class="fa-solid fa-toggle-off"></i>
+      </span>
+    </button>
+  </div>
+</nav>

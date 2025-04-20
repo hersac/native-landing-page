@@ -36,18 +36,39 @@ export class NavbarComponent extends HTMLElement {
     const html = this.iterationTitles(originalHtml);
 
     this.shadowRoot.innerHTML = `
-        <style>${css}</style>
+        <style>
+          @import url("./assets/css/globals.css");
+          @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
+          ${css}
+        </style>
         ${html}
       `;
+
+    const btnDarkMode = this.shadowRoot.querySelector("#btnDarkMode");
+
+    btnDarkMode.addEventListener("click", () => {
+      this.isDarkMode = !this.isDarkMode;
+
+      const event = new CustomEvent("darkModeChange", {
+        detail: { isDarkMode: this.isDarkMode },
+        bubbles: true,
+        composed: true,
+      });
+
+      this.dispatchEvent(event);
+    });
   }
 
   iterationTitles(originalHtml) {
-    return this.titles.map((navbarTitle) => {
-      const { title, icon, path } = navbarTitle;
-      return originalHtml
-        .replace("{{ navbar.title }}", title)
-        .replace("{{ navbar.icon }}", icon)
-        .replace("{{ navbar.path }}", path);
+    const titles = this.titles.map((element) => {
+      return `
+        <li class="navbar__list__element">
+          <a href="${element.path}" class="navbar__list__element__path">
+            ${element.title}
+          </a>
+        </li>`;
     });
+
+    return originalHtml.replace("{{ elements }}", titles.join(""));
   }
 }

@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+}
+
+.btn {
+  padding: 10px;
+  background-color: var(--bg-color);
+  border-radius: 5px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+  transition: ease-out 0.2s;
+}
+
+.btn:active {
+  filter: brightness(1.2);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-color-secundary);
+}
+
+.btn-secundary {
+  background-color: var(--secundary-color);
+  color: var(--text-color-secundary);
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  color: var(--text-color-secundary);
+}
+
+.btn-warning {
+  background-color: var(--warning-color);
+  color: var(--text-color-secundary);
+}
+
+.btn-error {
+  background-color: var(--error-color);
+  color: var(--text-color-secundary);
+}
+
+.btn-info {
+  background-color: var(--info-color);
+  color: var(--text-color-secundary);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.radius-sm {
+  border-radius: var(--radius-sm);
+}
+
+.radius-md {
+  border-radius: var(--radius-md);
+}
+
+.radius-lg {
+  border-radius: var(--radius-lg);
+}
+
+.radius-pill {
+  border-radius: 50px;
+}
+
+#app {
+  padding: 10px;
+  height: 100vh;
+}
