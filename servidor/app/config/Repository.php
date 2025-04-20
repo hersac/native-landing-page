@@ -14,7 +14,7 @@ class Repository
     private $className;
     private $columnNameId;
 
-    public function __constructor($class)
+    public function __construct($class)
     {
         try {
             $this->className = strtolower(basename(str_replace('\\', '/', $class)));
@@ -60,7 +60,7 @@ class Repository
             $columns = implode(", ", $columnsData);
 
             $this->db = new DBConfig();
-            $query = $this->db->getConnection()->prepare("CREATE TABLE IF NOT EXIST {$this->className} {$columns}");
+            $query = $this->db->getConnection()->prepare("CREATE TABLE IF NOT EXISTS {$this->className} ({$columns})");
             $query->execute();
         } catch (PDOException $e) {
             die("Error en la conexion de la entidad: {$e->getMessage()}");

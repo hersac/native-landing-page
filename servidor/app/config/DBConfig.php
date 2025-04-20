@@ -16,14 +16,11 @@ class DBConfig
         'password' => 'Heriberto1995**'
     ];
 
-    public function __constructor()
+    public function __construct()
     {
         try {
             $this->conn = new PDO(
-                "pgsql:
-                host={$this->db['host']};
-                port={$this->db['port']};
-                dbname={$this->db['dbname']}",
+                "pgsql:host={$this->db['host']};port={$this->db['port']};dbname={$this->db['dbname']}",
                 $this->db['username'],
                 $this->db['password']
             );
