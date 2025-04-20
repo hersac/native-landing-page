@@ -8,7 +8,7 @@ export class NavbarComponent extends HTMLElement {
     this.attachShadow({ mode: "open" });
 
     this.titles = [];
-    this.isDarkMode = false;
+    this.isDarkMode = localStorage.getItem("isDarkMode") === "true";
   }
 
   connectedCallback() {
@@ -22,6 +22,7 @@ export class NavbarComponent extends HTMLElement {
     if (name === "isDarkMode") {
       this.isDarkMode = newValue === "true";
     }
+
     this.render();
   }
 
@@ -45,9 +46,15 @@ export class NavbarComponent extends HTMLElement {
       `;
 
     const btnDarkMode = this.shadowRoot.querySelector("#btnDarkMode");
+    const darkModeIcons = this.shadowRoot.querySelector("#darkModeIcons");
+    const lightModeIcons = this.shadowRoot.querySelector("#lightModeIcons");
+
+    this.updateIconsVisibility(darkModeIcons, lightModeIcons);
 
     btnDarkMode.addEventListener("click", () => {
       this.isDarkMode = !this.isDarkMode;
+
+      this.updateIconsVisibility(darkModeIcons, lightModeIcons);
 
       const event = new CustomEvent("darkModeChange", {
         detail: { isDarkMode: this.isDarkMode },
@@ -57,6 +64,16 @@ export class NavbarComponent extends HTMLElement {
 
       this.dispatchEvent(event);
     });
+  }
+
+  updateIconsVisibility(darkModeIcons, lightModeIcons) {
+    if (this.isDarkMode) {
+      darkModeIcons.style.display = "none";
+      lightModeIcons.style.display = "block";
+    } else {
+      darkModeIcons.style.display = "block";
+      lightModeIcons.style.display = "none";
+    }
   }
 
   iterationTitles(originalHtml) {
