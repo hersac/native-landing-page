@@ -2,75 +2,18 @@
 
 namespace app;
 
-use app\routes\ProyectsRoutes;
-
-class Router
-{
-    private $routes = [];
-
-    public function get($path, $callback)
-    {
-        $this->addRoute('GET', $path, $callback);
-    }
-
-    public function post($path, $callback)
-    {
-        $this->addRoute('POST', $path, $callback);
-    }
-
-    public function put($path, $callback)
-    {
-        $this->addRoute('PUT', $path, $callback);
-    }
-
-    public function delete($path, $callback)
-    {
-        $this->addRoute('DELETE', $path, $callback);
-    }
-
-    private function addRoute($method, $path, $callback)
-    {
-        $pattern = preg_replace('/:[a-zA-Z0-9]+/', '([^/]+)', $path);
-        $pattern = str_replace('/', '\/', $pattern);
-        $pattern = '/^' . $pattern . '$/';
-
-        $this->routes[] = [
-            'method' => $method,
-            'path' => $path,
-            'pattern' => $pattern,
-            'callback' => $callback
-        ];
-    }
-
-    public function resolve($method, $uri)
-    {
-        $uri = explode('?', $uri)[0];
-        
-        foreach ($this->routes as $route) {
-            if ($route['method'] === $method && preg_match($route['pattern'], $uri, $matches)) {
-                array_shift($matches);
-                
-                call_user_func_array($route['callback'], $matches);
-                return;
-            }
-        }
-
-        header('Content-Type: application/json');
-        http_response_code(404);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Route not found'
-        ]);
-    }
-}
+use app\config\Router;
+use app\config\RouteRegistrar;
 
 class App
 {
     public $router;
+    private $routeRegistrar;
 
     public function __construct()
     {
         $this->router = new Router();
+        $this->routeRegistrar = new RouteRegistrar();
         $this->setupCORS();
     }
     
@@ -96,6 +39,12 @@ class App
         }
     }
     
+    public function registerRoutes()
+    {
+        $this->routeRegistrar->registerRoutes($this);
+        return $this;
+    }
+    
     public function run()
     {
         $method = $_SERVER['REQUEST_METHOD'];
@@ -108,13 +57,4 @@ class App
         
         $this->router->resolve($method, $uri);
     }
-}
-
-$app = new App();
-
-$proyectsRoutes = new ProyectsRoutes();
-$proyectsRoutes->register($app);
-
-if (basename($_SERVER['SCRIPT_FILENAME']) !== basename(__FILE__)) {
-    $app->run();
 }

@@ -1,4 +1,9 @@
 <?php
 
 require_once 'autoload.php';
-require_once 'app/app.php';
+
+use app\App;
+
+$app = new App();
+
+$app->registerRoutes()->run();

@@ -3,8 +3,10 @@
 namespace app\routes;
 
 use app\controllers\ProyectsController;
+use app\interfaces\RoutesInterface;
+use app\App;
 
-class ProyectsRoutes
+class ProyectsRoutes implements RoutesInterface
 {
     private $controller;
     private $baseRoute = '/api/proyects';
@@ -14,7 +16,7 @@ class ProyectsRoutes
         $this->controller = new ProyectsController();
     }
 
-    public function register($app)
+    public function register(App $app): void
     {
 
         $app->router->get($this->baseRoute . '/:id', function($id) {
