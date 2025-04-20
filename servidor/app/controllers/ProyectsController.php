@@ -13,11 +13,6 @@ class ProyectsController
         $this->proyectsServices = new ProyectsServices();
     }
 
-    /**
-     * Get all projects
-     * 
-     * @return void
-     */
     public function getProyects()
     {
         try {
@@ -28,12 +23,6 @@ class ProyectsController
         }
     }
 
-    /**
-     * Get a project by ID
-     * 
-     * @param int $id Project ID
-     * @return void
-     */
     public function getProyect($id)
     {
         try {
@@ -55,16 +44,9 @@ class ProyectsController
         }
     }
 
-    /**
-     * Create a new project
-     * 
-     * @param array $data Project data
-     * @return void
-     */
     public function createProyect()
     {
         try {
-            // Obtener datos del cuerpo de la solicitud
             $data = json_decode(file_get_contents("php://input"), true);
             
             if (!$data) {
@@ -79,12 +61,6 @@ class ProyectsController
         }
     }
 
-    /**
-     * Update an existing project
-     * 
-     * @param int $id Project ID
-     * @return void
-     */
     public function updateProyect($id)
     {
         try {
@@ -93,7 +69,6 @@ class ProyectsController
                 return;
             }
             
-            // Obtener datos del cuerpo de la solicitud
             $data = json_decode(file_get_contents("php://input"), true);
             
             if (!$data) {
@@ -108,12 +83,6 @@ class ProyectsController
         }
     }
 
-    /**
-     * Delete a project
-     * 
-     * @param int $id Project ID
-     * @return void
-     */
     public function deleteProyect($id)
     {
         try {
@@ -129,24 +98,15 @@ class ProyectsController
         }
     }
 
-    /**
-     * Send a success response
-     * 
-     * @param int $statusCode HTTP status code
-     * @param mixed $data Response data
-     * @return void
-     */
     private function sendResponse($statusCode, $data)
     {
         header('Content-Type: application/json');
         http_response_code($statusCode);
         
         if ($data !== null) {
-            // Si los datos ya son una cadena JSON, los enviamos tal cual
             if (is_string($data) && $this->isJson($data)) {
                 echo $data;
             } else {
-                // Si no, los codificamos a JSON
                 echo json_encode([
                     'status' => 'success',
                     'data' => $data
@@ -156,13 +116,6 @@ class ProyectsController
         exit;
     }
 
-    /**
-     * Send an error response
-     * 
-     * @param int $statusCode HTTP status code
-     * @param string $message Error message
-     * @return void
-     */
     private function sendError($statusCode, $message)
     {
         header('Content-Type: application/json');
@@ -174,12 +127,6 @@ class ProyectsController
         exit;
     }
 
-    /**
-     * Check if string is valid JSON
-     * 
-     * @param string $string String to check
-     * @return bool
-     */
     private function isJson($string)
     {
         json_decode($string);

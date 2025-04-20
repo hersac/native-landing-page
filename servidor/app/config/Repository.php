@@ -17,7 +17,12 @@ class Repository
     public function __construct($class)
     {
         try {
-            $this->className = strtolower(basename(str_replace('\\', '/', $class)));
+            $baseClassName = basename(str_replace('\\', '/', $class));
+            $baseClassName = preg_replace('/Entity$/', '', $baseClassName);
+            $snakeCase = $this->camelToSnakeCase($baseClassName);
+            
+            $this->className = $snakeCase . 's';
+            
             $reflection = new ReflectionClass($class);
             $properties = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
             $columnsData = [];
@@ -46,9 +51,11 @@ class Repository
                             $columnDefined = "$propName BOOLEAN";
                             break;
                         case 'class':
-                            $classProperty = basename(str_replace("\\", "/", $typeData));
-                            $columnDefined = "$propName INTEGER REFERENCES $classProperty($propName)";
-                            echo $columnDefined;
+                            // También adaptar las referencias a otras tablas
+                            $relatedClass = basename(str_replace("\\", "/", $typeData));
+                            $relatedClass = preg_replace('/Entity$/', '', $relatedClass);
+                            $relatedTableName = $this->camelToSnakeCase($relatedClass) . 's';
+                            $columnDefined = "$propName INTEGER REFERENCES $relatedTableName($propName)";
                             break;
                     }
                 }
@@ -85,9 +92,6 @@ class Repository
 
     public function save($request)
     {
-
-        //Tratamiento del Request
-
         $valuesData = [];
         $keysData = [];
 
@@ -99,11 +103,9 @@ class Repository
         $values = implode(', ', $valuesData);
         $keys = implode(', ', $keysData);
 
-        //Creación del registro
         $query = $this->db->getConnection()->prepare("INSERT INTO $this->className ($keys) VALUES ($values);");
         $query->execute();
 
-        //Respuesta de la creacion reciente
         $response = $this->db->getConnection()->prepare("SELECT * FROM $this->className WHERE $keysData[0] = $valuesData[0];");
         $response->execute();
         $data = $response->fetchAll(PDO::FETCH_ASSOC);
@@ -113,8 +115,6 @@ class Repository
     public function update($id, $request)
     {
 
-        //Tratamiento del Request
-
         $updateData = [];
 
         foreach ($request as $key => $value) {
@@ -122,12 +122,9 @@ class Repository
         }
 
         $values = implode(', ', $updateData);
-
-        //Busqueda y actualizacion del registro
         $query = $this->db->getConnection()->prepare("UPDATE $this->className SET $values WHERE $this->columnNameId = $id");
         $query->execute();
 
-        //Respuesta de la creacion reciente
         $response = $this->db->getConnection()->prepare("SELECT * FROM $this->className WHERE $this->columnNameId = $id");
         $response->execute();
         $data = $response->fetchAll(PDO::FETCH_ASSOC);
@@ -160,6 +157,6 @@ class Repository
             return '_' . strtolower($match[0]);
         }, $input);
 
-        return ltrim($snakeCase);
+        return ltrim($snakeCase, '_');
     }
 }
