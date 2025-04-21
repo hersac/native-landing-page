@@ -1,4 +1,5 @@
 import { NavbarComponent } from "../../components/navbar/navbar-component.js";
+import { HomePage } from "../../views/home/home-page.js";
 import { navbarTitles } from "../../constants/navbar-titles.js";
 
 const isDarkMode = localStorage.getItem("isDarkMode") === "true";
@@ -29,3 +30,9 @@ navbar.addEventListener("darkModeChange", (event) => {
 
 const header = document.querySelector("#header");
 header.appendChild(navbar);
+
+customElements.define("home-page", HomePage);
+const homePage = document.createElement("home-page");
+
+const app = document.querySelector("#app");
+app.appendChild(homePage);
