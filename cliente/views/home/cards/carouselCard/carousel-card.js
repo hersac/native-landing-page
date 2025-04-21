@@ -4,8 +4,13 @@ export class CarouselCard extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
+    this.activeSection = 1;
 
-    this.selector = carouselCardSections.selector1;
+    this.sectionConfig = {
+      1: { background: "./assets/img/fondo_tarjeta.webp" },
+      2: { background: "./assets/img/desierto.webp" },
+      3: { background: "./assets/img/playa.webp" },
+    };
   }
 
   connectedCallback() {
@@ -13,69 +18,75 @@ export class CarouselCard extends HTMLElement {
   }
 
   async render() {
-    const carouselStyles = await fetch(
-      "views/home/cards/carouselCard/carousel-card.css"
-    ).then((response) => response.text());
-    const carouselTemplate = await fetch(
-      "views/home/cards/carouselCard/carousel-card.html"
-    ).then((response) => response.text());
+    await this.loadResources();
+    this.setupEventListeners();
+    this.activateSection(this.activeSection);
+  }
 
-    this.shadowRoot.innerHTML = `
-            <style>
-              @import url("./assets/css/globals.css");
-              @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
-              ${carouselStyles}
-            </style>
-            ${carouselTemplate}
-        `;
+  async loadResources() {
+    try {
+      const [carouselStyles, carouselTemplate] = await Promise.all([
+        fetch("views/home/cards/carouselCard/carousel-card.css").then(
+          (response) => response.text()
+        ),
+        fetch("views/home/cards/carouselCard/carousel-card.html").then(
+          (response) => response.text()
+        ),
+      ]);
+
+      this.shadowRoot.innerHTML = `
+        <style>
+          @import url("./assets/css/globals.css");
+          @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
+          ${carouselStyles}
+        </style>
+        ${carouselTemplate}
+      `;
+    } catch (error) {
+      console.error("Error cargando recursos:", error);
+    }
+  }
+
+  setupEventListeners() {
+    const selectors = Array.from(
+      this.shadowRoot.querySelectorAll("[data-section]")
+    );
+
+    selectors.forEach((selector) => {
+      const sectionId = parseInt(selector.dataset.section);
+
+      if (selector.id.startsWith("selector")) {
+        selector.addEventListener("click", () =>
+          this.activateSection(sectionId)
+        );
+      }
+    });
+  }
+
+  activateSection(sectionId) {
+    if (!this.sectionConfig[sectionId]) return;
+
+    this.activeSection = sectionId;
+
+    const selectors = Array.from(
+      this.shadowRoot.querySelectorAll(
+        ".carouselCard__container__buttons__selectors__selector"
+      )
+    );
+    selectors.forEach((selector) => {
+      const id = parseInt(selector.dataset.section);
+      selector.classList.toggle("active", id === sectionId);
+    });
+
+    const contents = Array.from(
+      this.shadowRoot.querySelectorAll(".carouselCard__container__content")
+    );
+    contents.forEach((content) => {
+      const id = parseInt(content.dataset.section);
+      content.style.display = id === sectionId ? "flex" : "none";
+    });
 
     const fondoTarjeta = this.shadowRoot.querySelector("#fondo_tarjeta");
-    const selector1 = this.shadowRoot.querySelector("#selector1");
-    const selector2 = this.shadowRoot.querySelector("#selector2");
-    const selector3 = this.shadowRoot.querySelector("#selector3");
-    const content1 = this.shadowRoot.querySelector("#content1");
-    const content2 = this.shadowRoot.querySelector("#content2");
-    const content3 = this.shadowRoot.querySelector("#content3");
-
-    selector1.classList.add("active");
-    selector2.classList.remove("active");
-    selector3.classList.remove("active");
-    content1.style.display = "flex";
-    content2.style.display = "none";
-    content3.style.display = "none";
-    fondoTarjeta.setAttribute("src", "./assets/img/fondo_tarjeta.webp");
-
-    selector1.addEventListener("click", () => {
-      this.selector = carouselCardSections.selector1;
-      selector1.classList.add("active");
-      selector2.classList.remove("active");
-      selector3.classList.remove("active");
-      content1.style.display = "flex";
-      content2.style.display = "none";
-      content3.style.display = "none";
-      fondoTarjeta.setAttribute("src", "./assets/img/fondo_tarjeta.webp");
-    });
-
-    selector2.addEventListener("click", () => {
-      this.selector = carouselCardSections.selector2;
-      selector2.classList.add("active");
-      selector1.classList.remove("active");
-      selector3.classList.remove("active");
-      content1.style.display = "none";
-      content2.style.display = "flex";
-      content3.style.display = "none";
-      fondoTarjeta.setAttribute("src", "./assets/img/desierto.webp");
-    });
-
-    selector3.addEventListener("click", () => {
-      this.selector = carouselCardSections.selector3;
-      selector3.classList.add("active");
-      selector1.classList.remove("active");
-      selector2.classList.remove("active");
-      content1.style.display = "none";
-      content2.style.display = "none";
-      content3.style.display = "flex";
-      fondoTarjeta.setAttribute("src", "./assets/img/playa.webp");
-    });
+    fondoTarjeta.setAttribute("src", this.sectionConfig[sectionId].background);
   }
 }

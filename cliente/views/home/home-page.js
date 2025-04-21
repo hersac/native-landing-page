@@ -24,6 +24,5 @@ export class HomePage extends HTMLElement {
       `;
 
     customElements.define("carousel-card", CarouselCard);
-    const carouselCard = this.shadowRoot.querySelector("carousel-card");
   }
 }

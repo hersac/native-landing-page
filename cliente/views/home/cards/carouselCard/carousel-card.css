@@ -41,9 +41,11 @@
   color: white;
   cursor: pointer;
   position: relative;
+  transition: background-color 0.3s ease;
 }
 
-.carouselCard__container__buttons__selectors__selector:hover {
+.carouselCard__container__buttons__selectors__selector:hover,
+.carouselCard__container__buttons__selectors__selector.active {
   background-color: rgba(255, 255, 255, 0.477);
   color: white;
 }
@@ -63,26 +65,28 @@
   display: none;
 }
 
-/* |---------------------------------- SECCION 1 ----------------------------------|*/
-
-.carouselCard__container__contentA {
+.carouselCard__container__content {
   width: 95%;
+  display: none;
+}
+
+.carouselCard__container__content[data-section="1"] {
   display: flex;
 }
 
-.carouselCard__container__contentA__text {
+.carouselCard__container__content__text {
   width: 60%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.carouselCard__container__contentA__text__btns {
+.carouselCard__container__content__text__btns {
   display: flex;
   gap: 20px;
 }
 
-.carouselCard__container__contentA__img {
+.carouselCard__container__content__img {
   width: 40%;
   display: flex;
   justify-content: center;
@@ -90,54 +94,22 @@
   position: relative;
 }
 
-.carouselCard__container__contentA__img img {
+.carouselCard__container__content__img img {
   position: absolute;
   top: -100px;
   right: -20px;
   height: 400px;
 }
 
-/* |---------------------------------- SECCION 2 ----------------------------------|*/
-
-.carouselCard__container__contentB {
-  width: 95%;
-  display: flex;
-}
-
-.carouselCard__container__contentB__text {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
+.carouselCard__container__content[data-section="2"]
+  .carouselCard__container__content__text {
   color: white;
-  gap: 20px;
 }
 
-.carouselCard__container__contentB__text__btns {
-  display: flex;
-  gap: 20px;
-}
-
-/* |---------------------------------- SECCION 3 ----------------------------------|*/
-
-.carouselCard__container__contentC {
-  width: 95%;
-  display: flex;
-}
-
-.carouselCard__container__contentC__text {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
+.carouselCard__container__content[data-section="3"]
+  .carouselCard__container__content__text {
   color: black;
-  gap: 20px;
 }
-
-.carouselCard__container__contentC__text__btns {
-  display: flex;
-  gap: 20px;
-}
-
-/* |-------------------------------------------------------------------------------|*/
 
 .carouselCard__container__img {
   position: absolute;
