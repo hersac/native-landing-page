@@ -90,7 +90,8 @@ button {
 
 #app {
   padding: 20px;
-  height: 91.4vh;
+  height: 83.5vh;
+  overflow: auto;
 }
 
 .footer {
