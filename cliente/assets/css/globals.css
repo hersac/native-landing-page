@@ -92,3 +92,28 @@ button {
   padding: 20px;
   height: 91.4vh;
 }
+
+.footer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(#333333, #1d1d1d);
+  color: white;
+  font-size: 10px;
+}
+
+.footer__copyright {
+}
+
+.footer__credits {
+}
+
+.footer__credits__design {
+}
+
+.footer__credits__name {
+  font-weight: bold;
+}
