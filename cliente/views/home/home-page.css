@@ -3,9 +3,76 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  gap: 20px;
 }
 
 .carouselCard__component {
   width: 100%;
   height: 35%;
+}
+
+.home__contenido {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__contenido__imagen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__contenido__imagen img {
+  width: 500px;
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+}
+
+.home__contenido__mensaje {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.home__contenido__mensaje__titulo__uno {
+  font-size: 50px;
+  display: flex;
+  justify-content: start;
+}
+
+.home__contenido__mensaje__titulo__dos {
+  font-size: 40px;
+  display: flex;
+  justify-content: end;
+}
+
+.home__contenido__mensaje__texto {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.home__contenido__imagen,
+.home__contenido__mensaje {
+  transition: transform 0.2s ease;
+}
+
+.home__articulo {
+  background-color: yellow;
+}
+
+.home__carrouselFotos {
+  background-color: lightblue;
+}
+
+.home__elementoVisual {
+  background-color: green;
 }

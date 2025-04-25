@@ -36,3 +36,8 @@ const homePage = document.createElement("home-page");
 
 const app = document.querySelector("#app");
 app.appendChild(homePage);
+
+app.addEventListener('scroll', () => {
+  const scrollPosition = app.scrollTop;
+  homePage.setAttribute('scroll-position', scrollPosition.toString());
+});
