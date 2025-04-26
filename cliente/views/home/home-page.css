@@ -61,7 +61,10 @@
 }
 
 .home__contenido__imagen,
-.home__contenido__mensaje {
+.home__contenido__mensaje,
+.home__contenido__mensaje__titulo__uno,
+.home__contenido__mensaje__titulo__dos,
+.home__contenido__mensaje__texto {
   transition: transform 0.2s ease;
 }
 

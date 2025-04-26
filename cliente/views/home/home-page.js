@@ -42,10 +42,14 @@ export class HomePage extends HTMLElement {
   }
 
   smoothEffect() {
-    const homeContenidoImage = this.shadowRoot.querySelector('.home__contenido__imagen');
-    const homeContenidoMensaje = this.shadowRoot.querySelector('.home__contenido__mensaje');
+    const contenidoImagen = this.shadowRoot.querySelector('.home__contenido__imagen');
+    const tituloUno = this.shadowRoot.querySelector('.home__contenido__mensaje__titulo__uno');
+    const tituloDos = this.shadowRoot.querySelector('.home__contenido__mensaje__titulo__dos');
+    const mensajeTexto = this.shadowRoot.querySelector('.home__contenido__mensaje__texto');
 
-    homeContenidoImage.style.transform = `translateY(-${this.scrollPosition * 0.08}px)`;
-    homeContenidoMensaje.style.transform = `translateY(-${this.scrollPosition * 0.08}px)`;
+    contenidoImagen.style.transform = `translateY(-${this.scrollPosition * 0.08}px)`;
+    tituloUno.style.transform = `translateY(-${this.scrollPosition * 0.04}px)`;
+    tituloDos.style.transform = `translateX(-${this.scrollPosition * 0.02}px)`;
+    mensajeTexto.style.transform = `translateX(${this.scrollPosition * 0.06}px)`;
   }
 }
