@@ -120,6 +120,30 @@
   transform: rotate(12deg);
 }
 
+.home__dibujo__fondo__mundo__eur {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: -80px;
+  width: 250px;
+  height: 200px;
+  background-color: #2ecc71;
+  clip-path: polygon(17% 19%, 9% 38%, 18% 62%, 21% 73%, 36% 64%, 46% 50%, 56% 46%, 72% 45%, 83% 33%, 83% 17%, 63% 5%, 40% 8%, 24% 11%);
+  transform: rotate(35deg);
+}
+
+.home__dibujo__fondo__mundo__aus {
+  content: "";
+  position: absolute;
+  bottom: -70px;
+  right: -120px;
+  width: 250px;
+  height: 200px;
+  background-color: #2ecc71;
+  clip-path: polygon(25% 66%, 15% 72%, 15% 83%, 28% 90%, 48% 84%, 59% 92%, 79% 86%, 89% 73%, 85% 62%, 68% 54%, 48% 58%, 33% 60%);
+  transform: rotate(180deg);
+}
+
 .home__dibujo__fondo__mundo__poloN {
   position: absolute;
   top: -60px;
