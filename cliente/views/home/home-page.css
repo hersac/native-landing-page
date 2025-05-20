@@ -70,20 +70,22 @@
   transition: transform 0.2s ease;
 }
 
-.home__dibujo {
+.home__pasaporte {
   width: 100%;
   min-height: 300px;
   overflow: hidden;
 }
 
-.home__dibujo__fondo {
+.home__pasaporte__fondo {
   width: 100%;
   height: 100%;
-  background-color: #FFFFFF10;
+  background: linear-gradient(to right, #51a2be,#00436c);
+  box-shadow: inset var(--shadow-md);
   position: relative;
+  border-radius: var(--radius-lg);
 }
 
-.home__dibujo__fondo__mundo {
+.home__pasaporte__fondo__mundo {
   position: absolute;
   right: 10%;
   /* bottom: -125px; */
@@ -112,7 +114,7 @@
 }
 
 
-.home__dibujo__fondo__mundo__usa {
+.home__pasaporte__fondo__mundo__usa {
   content: "";
   position: absolute;
   top: 50px;
@@ -125,7 +127,7 @@
   transform: rotate(-12deg);
 }
 
-.home__dibujo__fondo__mundo__latin {
+.home__pasaporte__fondo__mundo__latin {
   content: "";
   position: absolute;
   bottom: 20px;
@@ -138,7 +140,7 @@
   transform: rotate(12deg);
 }
 
-.home__dibujo__fondo__mundo__eur {
+.home__pasaporte__fondo__mundo__eur {
   content: "";
   position: absolute;
   top: 20px;
@@ -150,7 +152,7 @@
   transform: rotate(35deg);
 }
 
-.home__dibujo__fondo__mundo__aus {
+.home__pasaporte__fondo__mundo__aus {
   content: "";
   position: absolute;
   bottom: -70px;
@@ -162,7 +164,7 @@
   transform: rotate(180deg);
 }
 
-.home__dibujo__fondo__mundo__poloN {
+.home__pasaporte__fondo__mundo__poloN {
   position: absolute;
   top: -60px;
   left: 30%;
@@ -173,7 +175,7 @@
 
 }
 
-.home__dibujo__fondo__mundo__poloS {
+.home__pasaporte__fondo__mundo__poloS {
   position: absolute;
   bottom: -60px;
   left: 30%;
@@ -183,7 +185,7 @@
   background-color: #FFFFFF;
 }
 
-.home__dibujo__fondo__titulo {
+.home__pasaporte__fondo__titulo {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -192,66 +194,30 @@
   width: 100%;
 }
 
-.home__dibujo__fondo__passports {
+.home__pasaporte__fondo__imagen {
   position: absolute;
-  top: 20%;
-  left: 5%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease;
 }
 
-.home__dibujo__fondo__passport__uno,
-.home__dibujo__fondo__passport__dos,
-.home__dibujo__fondo__passport__tres,
-.home__dibujo__fondo__passport__cuatro {
-  position: absolute;
-  width: 100px;
-  height: 150px;
-  background-color: #541c09;
-  border-radius: 10px;
-  box-shadow: var(--shadow-md);
-  display: flex;
-  justify-content: center;
-  font-family: "Libre Caslon Display", serif;
-  font-size: 20px;
-  color: #EFB810;
-  font-weight: bold;
+.home__pasaporte__fondo__imagen img {
+  width: 300px;
+  object-fit: cover;
 }
 
-.home__dibujo__fondo__passport__uno {
-  top: 20px;
-  left: 60px;
-  transform: rotate(345deg);
-}
+@keyframes aparecer {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
 
-.home__dibujo__fondo__passport__dos {
-  top: 18px;
-  left: 90px;
-  transform: rotate(355deg);
-}
-
-.home__dibujo__fondo__passport__tres {
-  top: 18px;
-  left: 120px;
-  transform: rotate(365deg);
-}
-
-.home__dibujo__fondo__passport__cuatro {
-  top: 20px;
-  left: 150px;
-  transform: rotate(10deg);
-  position: relative;
-}
-
-.home__dibujo__fondo__passport__escudo {
-  content: "";
-  position: absolute;
-  top: 45%;
-  left: 20%;
-  width: 50px;
-  height: 50px;
-  background-color: none;
-  border: 5px solid #EFB810;
-  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
-  transform: rotate(270deg);
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .home__carrouselFotos {
